@@ -448,11 +448,8 @@ RegisterNetEvent('jl-laptop:client:HackCar', function()
             local car = cache.vehicle
             local State = Entity(car).state.Boosting
             if State and State.boostHacks > 0 and not State.boostCooldown then
-                local pushingP = promise.new()
-                exports['ps-ui']:Scrambler(function(cb)
-                    pushingP:resolve(cb)
-                end, psUI[math.random(1, #psUI)], 30, 0)
-                local success = Citizen.Await(pushingP)
+                
+                local success = lib.skillCheck({"easy", "easy", "easy"}, {"e"})
 
                 TriggerServerEvent('jl-laptop:server:SyncPlates', success)
                 currentHacking = false
@@ -733,19 +730,17 @@ RegisterNUICallback("boosting/expire", function(data, cb)
 end)
 
 CreateThread(function()
-    exports['qb-target']:AddGlobalVehicle({
-        options = {
+    exports.ox_target:addGlobalVehicle({
             {
                 label = "Check Vin",
                 icon = "fas fa-car-rear",
-                action = function(entity)
-                    CheckVin(NetworkGetNetworkIdFromEntity(entity))
+                distance = 1.5,
+                onSelect = function(data)
+                    CheckVin(NetworkGetNetworkIdFromEntity(data.entity))
                 end,
                 canInteract = function(entity)
                     return isPolice() and IsThisModelACar(GetEntityModel(entity))
                 end
             }
-        },
-        distance = 1.5
     })
 end)

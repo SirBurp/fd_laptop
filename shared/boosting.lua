@@ -2,7 +2,7 @@ Config.Boosting = {}
 
 Config.Boosting.MinCops = 0
 
-Config.Boosting.Notifications = "phone" -- Use this for qb // renewed phone intergration, use "notify" for normal QBCore Notifications // NWPD for New Phone Who Dis
+Config.Boosting.Notifications = "NWPD" -- Use this for qb // renewed phone intergration, use "notify" for normal QBCore Notifications // NWPD for New Phone Who Dis
 
 Config.Boosting.Debug = true -- Make this true to make boosting faster lmao
 
@@ -19,13 +19,13 @@ Config.Boosting.MaxBoosts = 5 -- The amount of boosts a player can hold in their
 Config.Boosting.MinusOne = true -- true or false, detmains wheather the Z is minus 1 or not.
 
 Config.Boosting.PedSettings = {
-    ["D"] = { weapons = { "weapon_bat", "weapon_pistol" } },
-    ["C"] = { weapons = { "weapon_pistol_mk2", "weapon_pistol" } },
-    ["B"] = { weapons = { "weapon_pistol_mk2", "weapon_pistol" } },
-    ["A"] = { weapons = { "weapon_pistol_mk2", "weapon_gusenberg" } },
-    ["A+"] = { weapons = { "weapon_combatpistol", "weapon_machinepistol" } },
-    ["S"] = { weapons = { "weapon_microsmg", "weapon_minismg" } },
-    ["S+"] = { weapons = { "weapon_assaultrifle", "weapon_combatmg" } },
+    ["D"] = { weapons = { "weapon_bottle", "weapon_poolcue", "weapon_golfclub", "weapon_bat" } },
+    ["C"] = { weapons = { "weapon_golfclub", "weapon_bat", "weapon_hammer", "weapon_crowbar" } },
+    ["B"] = { weapons = { "weapon_hammer", "weapon_crowbar", "weapon_wrench", "weapon_knuckle" } },
+    ["A"] = { weapons = { "weapon_wrench", "weapon_knuckle", "weapon_knife", "weapon_switchblade" } },
+    ["A+"] = { weapons = { "weapon_knuckle", "weapon_knife", "weapon_switchblade", "weapon_machete" } },
+    ["S"] = { weapons = { "weapon_knife", "weapon_switchblade", "weapon_machete","weapon_stungun" } },
+    ["S+"] = { weapons = { "weapon_wrench", "weapon_switchblade", "weapon_machete","weapon_stungun" } },
 }
 
 Config.Boosting.Locations = {

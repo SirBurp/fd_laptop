@@ -769,17 +769,17 @@ end
 
 function GetHoursFromNow(hours)
     if Config.Linux then
-        return os.date("!%Y-%m-%dT%TZ", os.time() + hours * 60 * 60)
+        return os.date("!%Y-%m-%d %X", os.time() + hours * 60 * 60)
     else
-        return os.date("!%Y-%m-%dT%SZ", os.time() + hours * 60 * 60)
+        return os.date("!%Y-%m-%d %X", os.time() + hours * 60 * 60)
     end
 end
 
 function GetCurrentTime()
     if Config.Linux then
-        return os.date("!%Y-%m-%dT%TZ", os.time())
+        return os.date("!%Y-%m-%d %X", os.time())
     else
-        return os.date("!%Y-%m-%dT%SZ", os.time())
+        return os.date("!%Y-%m-%d %X", os.time())
     end
 end
 
@@ -812,6 +812,8 @@ local function generateContract(src, contract, vehicle, mission)
     mission = mission or missionType(boostData, contract)
 
     if contract and vehicle and mission then
+        print(("Generated Contract for %s | Tier: %s | Vehicle: %s | Type: %s"):format(
+            Player.PlayerData.charinfo.firstname, contract, vehicle, mission)) 
         currentContracts[CID][#currentContracts[CID] + 1] = {
             id = #currentContracts[CID] + 1,
             contract = contract,
@@ -825,6 +827,8 @@ local function generateContract(src, contract, vehicle, mission)
         LookingForContracts[CID].skipped = 0
         TriggerClientEvent('jl-laptop:client:ContractHandler', src, currentContracts[CID], GetCurrentTime())
     else
+        print(("Failed to generate Contract for %s | Tier: %s | Vehicle: %s | Type: %s"):format(
+            Player.PlayerData.charinfo.firstname, tostring(contract), tostring(vehicle), tostring(mission)))
         LookingForContracts[CID].skipped += 1
     end
 end
@@ -842,7 +846,7 @@ CreateThread(function()
                         end
                         -- If skipped is bigger or equal to 25 we give player a contract for waiting
                         -- Otherwise we say if they been in queue longer than 2-7 skips and their chance is higher than 0.75 (meaning 25% chance) we will reward them with a contract
-                        if v.skipped >= 25 or (v.skipped >= math.random(2, 7) and ContractChance >= 0.75) then
+                        if v.skipped >= 25 or (v.skipped >= math.random(2, 7) and ContractChance >= 0.05) then
                             generateContract(v.src)
                         else
                             v.skipped += 1
@@ -858,7 +862,7 @@ CreateThread(function()
                 end
             end
         end
-        Wait(Config.Boosting.Debug and 200 or (math.random(1, 4) * 60000)) -- Once every 1 to 4 minutes
+        Wait(200)--Wait(Config.Boosting.Debug and 200 or (math.random(1, 4) * 60000)) -- Once every 1 to 4 minutes
     end
 end)
 
